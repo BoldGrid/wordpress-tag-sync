@@ -1,0 +1,19 @@
+{
+  "name": "@boldgrid/wordpress-tag-sync",
+  "version": "1.0.0",
+  "description": "Sync github tags with wp svn tags",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BoldGrid/wordpress-tag-sync.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BoldGrid/wordpress-tag-sync/issues"
+  },
+  "homepage": "https://github.com/BoldGrid/wordpress-tag-sync#readme"
+}
