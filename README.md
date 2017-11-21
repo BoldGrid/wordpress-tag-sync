@@ -8,7 +8,7 @@ build succeeds via Travis.
 ### Install the package
 
 ```
-yarn add wordpress-tag-sync --dev
+yarn add @boldrgid/wordpress-tag-sync --dev
 ```
 
 ### Update your travis.yml
@@ -20,7 +20,7 @@ you have multiple build for different environments you may need to specify a con
 ```
 deploy:
   provider: script
-  script: chmod +x ./node_modules/wordpress-tag-sync/release.sh && ./node_modules/wordpress-tag-sync/release.sh
+  script: chmod +x ./node_modules/@boldrgid/wordpress-tag-sync/release.sh && ./node_modules/@boldrgid/wordpress-tag-sync/release.sh
   skip_cleanup: true
   on:
     tags: true
