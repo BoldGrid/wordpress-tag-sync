@@ -8,7 +8,7 @@ build succeeds via Travis.
 ### Install the package
 
 ```
-yarn add @boldrgid/wordpress-tag-sync --dev
+yarn add @boldgrid/wordpress-tag-sync --dev
 ```
 
 ### Update your travis.yml
@@ -21,7 +21,7 @@ tag isn't copied multiple times: See:
 ```
 deploy:
   provider: script
-  script: chmod +x ./node_modules/@boldrgid/wordpress-tag-sync/release.sh && ./node_modules/@boldrgid/wordpress-tag-sync/release.sh
+  script: chmod +x ./node_modules/@boldgrid/wordpress-tag-sync/release.sh && ./node_modules/@boldgrid/wordpress-tag-sync/release.sh
   skip_cleanup: true
   on:
     tags: true
