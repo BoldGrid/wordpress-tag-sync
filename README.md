@@ -41,6 +41,22 @@ export WP_USERNAME=your-username
 export WP_PASSWORD=password
 ```
 
+### Release Archive (extra)
+
+Additionally the script will create a zip file of the build which you can automatically upload to
+your release via Travis. Add the following to your Travis configuration under deploy. You'll have to
+provide the GitHub token via the Travis interface as an environment variable. The zip file will be
+named the basename of your WordPress repo.
+
+```
+- provider: releases
+  api_key: "${GITHUB_TOKEN}"
+  file: "plugin-name.zip"
+  skip_cleanup: true
+  on:
+	tags: true
+```
+
 ### DONE
 
 Travis will now update your tags in svn after build success. In order to change your stable tag you

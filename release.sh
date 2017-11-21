@@ -4,7 +4,6 @@
 # License: GPL v2
 
 set -e
-clear
 
 # ASK INFO
 echo "--------------------------------------------"
@@ -16,15 +15,18 @@ VERSION=$(git describe --exact-match --tags $(git log -n1 --pretty='%h'))
 CI_BUILD_PATH=$(pwd)"/"
 SVN_DIR="tmp-repo-svn"
 SVN_WORKSPACE=${CI_BUILD_PATH}${SVN_DIR}
+VERSION_PATH=$SVN_WORKSPACE"/tags/"${VERSION}
+PLUGIN_NAME=$(basename ${WP_SVN_REPO})
 
 echo "Releasing Version: ${VERSION}";
+echo "Using Plugin Name: ${PLUGIN_NAME}"
 
 # CHECKOUT SVN DIR IF NOT EXISTS
-if [ ! -d $SVN_WORKSPACE ];
-then
-	echo "Checking out WordPress.org plugin repository"
-	svn checkout $WP_SVN_REPO $SVN_DIR --depth immediates || { echo "Unable to checkout repo."; exit 1; }
-fi
+rm -f $PLUGIN_NAME".zip"
+rm -Rf $PLUGIN_NAME
+rm -Rf $SVN_DIR
+echo "Checking out WordPress.org plugin repository"
+svn checkout $WP_SVN_REPO $SVN_DIR --depth immediates || { echo "Unable to checkout repo."; exit 1; }
 
 # MOVE INTO SVN DIR
 cd $SVN_WORKSPACE
@@ -34,14 +36,14 @@ echo "Updating SVN"
 svn update "tags/"${VERSION} --set-depth infinity || { echo "Unable to update SVN."; exit 1; }
 
 echo "Copy repo files to working dir"
-rm -Rf $SVN_WORKSPACE"/tags/"${VERSION}
-mkdir $SVN_WORKSPACE"/tags/"${VERSION}
+rm -Rf $VERSION_PATH
+mkdir $VERSION_PATH
 
 shopt -s extglob
-cp -prf ${CI_BUILD_PATH}!(node_modules|${SVN_DIR}) $SVN_WORKSPACE"/tags/"${VERSION}
+cp -prf ${CI_BUILD_PATH}!(node_modules|${SVN_DIR}) $VERSION_PATH
 shopt -u extglob
 
-cd $SVN_WORKSPACE"/tags/"${VERSION}
+cd $VERSION_PATH
 
 # REMOVE UNWANTED FILES & FOLDERS
 echo "Removing unwanted files"
@@ -98,6 +100,13 @@ svn status
 echo ""
 echo "Committing to WordPress.org...this may take a while..."
 svn commit -m "Release "${VERSION}", see readme.txt for the changelog." --username=$WP_USERNAME --password=$WP_PASSWORD --non-interactive --no-auth-cache || { echo "Unable to commit."; exit 1; }
+
+echo "Zip output"
+cd $CI_BUILD_PATH
+mv $VERSION_PATH $PLUGIN_NAME
+zip -rq $PLUGIN_NAME".zip" $PLUGIN_NAME"/"
+rm -Rf $PLUGIN_NAME
+echo "Created: "$PLUGIN_NAME".zip"
 
 echo "Cleanup"
 rm -Rf $SVN_WORKSPACE
