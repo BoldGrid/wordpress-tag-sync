@@ -14,7 +14,8 @@ yarn add @boldrgid/wordpress-tag-sync --dev
 ### Update your travis.yml
 
 Adding the following snippet will run the script after your build finishes on tag builds. Note: If
-you have multiple builds for different environments you may need to specify a condition so that the tag isn't copied multiple times: See:
+you have multiple builds for different environments you may need to specify a condition so that the
+tag isn't copied multiple times: See:
 [Travis deployment conditions](https://docs.travis-ci.com/user/deployment/#Conditional-Releases-with-on%3A)
 
 ```
@@ -46,4 +47,4 @@ Travis will now update your tags in svn after build success. In order to change 
 will need a separate process to copy a given tag to trunk.
 
 Based on the following repo:
-(https://github.com/mikejolley/github-to-wordpress-deploy-script)[https://github.com/mikejolley/github-to-wordpress-deploy-script]
+[https://github.com/mikejolley/github-to-wordpress-deploy-script](https://github.com/mikejolley/github-to-wordpress-deploy-script)
