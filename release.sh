@@ -51,6 +51,7 @@ rm -Rf .git
 rm -Rf .github
 rm -Rf tests
 rm -Rf apigen
+rm -Rf coverage
 rm -Rf node_modules
 rm -Rf bin
 rm -Rf tools
