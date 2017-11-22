@@ -54,6 +54,7 @@ rm -Rf apigen
 rm -Rf node_modules
 rm -Rf bin
 rm -Rf tools
+rm -Rf bower_components
 rm -f .gitattributes
 rm -f .gitignore
 rm -f .gitmodules
@@ -61,6 +62,7 @@ rm -f .travis.yml
 rm -f release.sh
 rm -f Gruntfile.js
 rm -f gulpfile.js
+rm -f bower.json
 rm -f karma.conf.js
 rm -f yarn.lock
 rm -f webpack.config.js

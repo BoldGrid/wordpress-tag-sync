@@ -20,11 +20,11 @@ tag isn't copied multiple times: See:
 
 ```
 deploy:
-  provider: script
-  script: chmod +x ./node_modules/@boldgrid/wordpress-tag-sync/release.sh && ./node_modules/@boldgrid/wordpress-tag-sync/release.sh
-  skip_cleanup: true
-  on:
-    tags: true
+  - provider: script
+    script: chmod +x ./node_modules/@boldgrid/wordpress-tag-sync/release.sh && ./node_modules/@boldgrid/wordpress-tag-sync/release.sh
+    skip_cleanup: true
+    on:
+      tags: true
 ```
 
 ### Update your Travis env variables
@@ -60,7 +60,8 @@ named the basename of your WordPress repo.
 ### DONE
 
 Travis will now update your tags in svn after build success. In order to change your stable tag you
-will need a separate process to copy a given tag to trunk.
+will need a separate process to copy a given tag to trunk. Included in this package is deploy.sh, which
+can issue that copy command. You can run it manually or in the Travis process.
 
 Based on the following repo:
 [https://github.com/mikejolley/github-to-wordpress-deploy-script](https://github.com/mikejolley/github-to-wordpress-deploy-script)
