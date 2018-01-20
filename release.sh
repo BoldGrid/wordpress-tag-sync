@@ -51,6 +51,7 @@ rm -Rf .git
 rm -Rf .github
 rm -Rf tests
 rm -Rf apigen
+rm -Rf coverage
 rm -Rf node_modules
 rm -Rf bin
 rm -Rf tools
@@ -64,6 +65,7 @@ rm -f Gruntfile.js
 rm -f gulpfile.js
 rm -f bower.json
 rm -f karma.conf.js
+rm -f karma.config.js
 rm -f yarn.lock
 rm -f webpack.config.js
 rm -f package.json
@@ -79,6 +81,8 @@ rm -f .editorconfig
 rm -f .scrutinizer.yml
 rm -f apigen.neon
 rm -f CHANGELOG.txt
+rm -f stylelint.config.js
+rm -f .stylelintignore
 rm -f CONTRIBUTING.md
 
 cd $SVN_WORKSPACE
