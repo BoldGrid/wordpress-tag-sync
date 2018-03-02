@@ -27,7 +27,8 @@ rm -Rf $PLUGIN_NAME
 rm -Rf $SVN_DIR
 
 echo "Create SVN Tag Dir"
-svn cp $WP_SVN_REPO/trunk ${WP_SVN_REPO}/tags/${VERSION} -m "New tag"  --username=$WP_USERNAME --password=$WP_PASSWORD --non-interactive --no-auth-cache
+svn delete ${WP_SVN_REPO}/tags/${VERSION} -m "Remove Old Tag" --username=$WP_USERNAME --password=$WP_PASSWORD --non-interactive --no-auth-cache
+svn cp $WP_SVN_REPO/trunk ${WP_SVN_REPO}/tags/${VERSION} -m "New tag" --username=$WP_USERNAME --password=$WP_PASSWORD --non-interactive --no-auth-cache
 
 echo "Checking out WordPress.org plugin repository"
 svn checkout $WP_SVN_REPO $SVN_DIR --depth immediates || { echo "Unable to checkout repo."; exit 1; }
