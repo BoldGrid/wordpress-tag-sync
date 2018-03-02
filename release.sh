@@ -26,8 +26,10 @@ rm -f $PLUGIN_NAME".zip"
 rm -Rf $PLUGIN_NAME
 rm -Rf $SVN_DIR
 
-echo "Create SVN Tag Dir"
-svn delete ${WP_SVN_REPO}/tags/${VERSION} -m "Remove Old Tag" --username=$WP_USERNAME --password=$WP_PASSWORD --non-interactive --no-auth-cache
+echo "Deleting Old Tag"
+svn delete ${WP_SVN_REPO}/tags/${VERSION} -m "Remove Old Tag" --username=$WP_USERNAME --password=$WP_PASSWORD --non-interactive --no-auth-cache || echo "Old tag not found.";
+
+echo "Creating New Tag"
 svn cp $WP_SVN_REPO/trunk ${WP_SVN_REPO}/tags/${VERSION} -m "New tag" --username=$WP_USERNAME --password=$WP_PASSWORD --non-interactive --no-auth-cache
 
 echo "Checking out WordPress.org plugin repository"
@@ -41,8 +43,8 @@ echo "Updating SVN tag"
 svn update "tags/"${VERSION} --set-depth infinity || { echo "Unable to update SVN."; exit 1; }
 
 echo "Delete trunk files"
-find $VERSION_PATH -mindepth 1 -type d -not -path '*.svn*' -exec rm -rf {} \;
-find $VERSION_PATH -type f -not -path '*.svn*' -exec rm -f {} \;
+rm -Rf $VERSION_PATH
+mkdir $VERSION_PATH
 
 echo "Copy repo files to working dir"
 shopt -s extglob
