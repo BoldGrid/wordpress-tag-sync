@@ -25,6 +25,10 @@ echo "Using Plugin Name: ${PLUGIN_NAME}"
 rm -f $PLUGIN_NAME".zip"
 rm -Rf $PLUGIN_NAME
 rm -Rf $SVN_DIR
+
+echo "Create SVN Tag Dir"
+svn cp $WP_SVN_REPO/trunk ${WP_SVN_REPO}/tags/${VERSION} -m "New tag"  --username=$WP_USERNAME --password=$WP_PASSWORD --non-interactive --no-auth-cache
+
 echo "Checking out WordPress.org plugin repository"
 svn checkout $WP_SVN_REPO $SVN_DIR --depth immediates || { echo "Unable to checkout repo."; exit 1; }
 
@@ -32,13 +36,14 @@ svn checkout $WP_SVN_REPO $SVN_DIR --depth immediates || { echo "Unable to check
 cd $SVN_WORKSPACE
 
 # UPDATE SVN
-echo "Updating SVN"
+echo "Updating SVN tag"
 svn update "tags/"${VERSION} --set-depth infinity || { echo "Unable to update SVN."; exit 1; }
 
-echo "Copy repo files to working dir"
-rm -Rf $VERSION_PATH
-mkdir $VERSION_PATH
+echo "Delete trunk files"
+find $VERSION_PATH -mindepth 1 -type d -not -path '*.svn*' -exec rm -rf {} \;
+find $VERSION_PATH -type f -not -path '*.svn*' -exec rm -f {} \;
 
+echo "Copy repo files to working dir"
 shopt -s extglob
 cp -prf ${CI_BUILD_PATH}!(node_modules|${SVN_DIR}) $VERSION_PATH
 shopt -u extglob
