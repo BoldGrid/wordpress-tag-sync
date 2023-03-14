@@ -1,6 +1,6 @@
 {
   "name": "@boldgrid/wordpress-tag-sync",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Sync github tags with wp svn tags",
   "main": "index.js",
   "scripts": {
