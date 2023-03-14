@@ -106,6 +106,17 @@ for MISSING_PATH in $MISSING_PATHS; do
     svn rm --force "$MISSING_PATH"
 done
 
+# Find all "unexpectedly changed kind" items (ie: symlink to file).
+CHANGED_PATHS=$( svn status | sed -e '/^~/!d' -e 's/^~//' )
+
+# Iterate over changed type filepaths.
+for CHANGED_PATH in $CHANGED_PATHS; do
+    mv "$CHANGED_PATH" "$CHANGED_PATH.TEMP0"
+    svn rm --force "$CHANGED_PATH"
+    mv "$CHANGED_PATHS.TEMP0" "$CHANGED_PATH"
+    svn add --force "$CHANGED_PATH"
+done
+
 # DO SVN COMMIT
 clear
 echo "Showing SVN status"
